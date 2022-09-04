@@ -1,1 +1,10 @@
-
+spring:
+  datasource:
+    generate-unique-name: false
+    name: phone_book
+    url: jdbc:h2:mem:phone_book
+    driverClassName: org.h2.Driver
+    username: sa
+    password: 123
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
