@@ -2,7 +2,7 @@ package org.shmorgunov.phonebook.service;
 
 import lombok.AllArgsConstructor;
 import org.shmorgunov.phonebook.data.PhoneBookRepository;
-import org.shmorgunov.phonebook.domain.Record;
+import org.shmorgunov.phonebook.domain.PhoneRecord;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,19 +13,19 @@ public class PhoneBookService {
 
     private PhoneBookRepository bookRepository;
 
-    public List<Record> listAllRecords() {
-        return (List<Record>) bookRepository.findAll();
+    public List<PhoneRecord> listAllPhoneRecords() {
+        return (List<PhoneRecord>) bookRepository.findAll();
     }
 
-    public void saveRecord(Record std) {
-        bookRepository.save(std);
+    public void saveRecord(PhoneRecord phoneRecord) {
+        bookRepository.save(phoneRecord);
     }
 
-    public Record findRecordById(long id) {
+    public PhoneRecord findPhoneRecordById(long id) {
         return bookRepository.findById(id).orElse(null);
     }
 
-    public void deleteRecord(long id) {
+    public void deletePhoneRecord(long id) {
         bookRepository.deleteById(id);
     }
 
