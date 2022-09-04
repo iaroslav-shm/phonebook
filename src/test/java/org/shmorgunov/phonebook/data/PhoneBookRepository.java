@@ -1,8 +1,10 @@
 package org.shmorgunov.phonebook.data;
 
-import org.shmorgunov.phonebook.domain.PhoneBook;
+import org.shmorgunov.phonebook.domain.Record;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 
-public interface PhoneBookRepository extends CrudRepository<PhoneBook, Long> {
+@Repository
+public interface PhoneBookRepository extends CrudRepository<Record, Long> {
 }
