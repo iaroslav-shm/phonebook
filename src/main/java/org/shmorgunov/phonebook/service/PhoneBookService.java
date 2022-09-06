@@ -5,7 +5,9 @@ import org.shmorgunov.phonebook.data.PhoneBookRepository;
 import org.shmorgunov.phonebook.domain.PhoneRecord;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -14,19 +16,42 @@ public class PhoneBookService {
     private PhoneBookRepository bookRepository;
 
     public List<PhoneRecord> listAllPhoneRecords() {
-        return (List<PhoneRecord>) bookRepository.findAll();
+        return bookRepository.findAll();
     }
 
-    public void saveRecord(PhoneRecord phoneRecord) {
-        bookRepository.save(phoneRecord);
+    public PhoneRecord saveRecord(PhoneRecord phoneRecord) {
+        String trimmedName = phoneRecord.getName().trim();
+        phoneRecord.setName(trimmedName);
+        String trimmedPhone = phoneRecord.getPhone().trim();
+        phoneRecord.setName(trimmedPhone);
+        return bookRepository.save(phoneRecord);
     }
 
-    public PhoneRecord findPhoneRecordById(long id) {
-        return bookRepository.findById(id).orElse(null);
+    public Optional<PhoneRecord> findPhoneRecordById(Long id) {
+        return bookRepository.findById(id);
     }
 
-    public void deletePhoneRecord(long id) {
+    public void deletePhoneRecordById(Long id) {
         bookRepository.deleteById(id);
     }
 
+    public Optional<PhoneRecord> patchPhoneRecordById(Long id, PhoneRecord patch) {
+        Optional<PhoneRecord> phoneRecordOptional = bookRepository.findById(id);
+
+        if (phoneRecordOptional.isPresent()) {
+            PhoneRecord phoneRecord = phoneRecordOptional.get();
+            if (patch.getPhone() != null) {
+                String phone = patch.getPhone().trim();
+                phoneRecord.setPhone(phone);
+                phoneRecord.setLastModified(LocalDateTime.now());
+            }
+            if (patch.getName() != null) {
+                String name = patch.getName().trim();
+                phoneRecord.setName(name);
+                phoneRecord.setLastModified(LocalDateTime.now());
+            }
+            bookRepository.save(phoneRecord);
+        }
+        return phoneRecordOptional;
+    }
 }
