@@ -9,6 +9,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import static org.shmorgunov.phonebook.util.StringModificationHelper.formatPhoneNumber;
+import static org.shmorgunov.phonebook.util.StringModificationHelper.trimName;
+
 @Service
 @AllArgsConstructor
 public class PhoneBookService {
@@ -19,11 +22,13 @@ public class PhoneBookService {
         return bookRepository.findAll();
     }
 
-    public PhoneRecord saveRecord(PhoneRecord phoneRecord) {
-        String trimmedName = phoneRecord.getName().trim();
-        phoneRecord.setName(trimmedName);
-        String trimmedPhone = phoneRecord.getPhone().trim();
-        phoneRecord.setName(trimmedPhone);
+    public PhoneRecord addRecord(PhoneRecord phoneRecord) {
+        String name = phoneRecord.getName();
+        phoneRecord.setName(trimName(name));
+
+        String phone = phoneRecord.getPhone();
+        phoneRecord.setPhone(formatPhoneNumber(phone));
+
         return bookRepository.save(phoneRecord);
     }
 
@@ -41,13 +46,13 @@ public class PhoneBookService {
         if (phoneRecordOptional.isPresent()) {
             PhoneRecord phoneRecord = phoneRecordOptional.get();
             if (patch.getPhone() != null) {
-                String phone = patch.getPhone().trim();
-                phoneRecord.setPhone(phone);
+                String phone = patch.getPhone();
+                phoneRecord.setPhone(formatPhoneNumber(phone));
                 phoneRecord.setLastModified(LocalDateTime.now());
             }
             if (patch.getName() != null) {
-                String name = patch.getName().trim();
-                phoneRecord.setName(name);
+                String name = patch.getName();
+                phoneRecord.setName(trimName(name));
                 phoneRecord.setLastModified(LocalDateTime.now());
             }
             bookRepository.save(phoneRecord);
