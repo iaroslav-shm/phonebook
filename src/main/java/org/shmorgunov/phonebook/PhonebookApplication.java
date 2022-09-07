@@ -24,7 +24,7 @@ public class PhonebookApplication implements WebMvcConfigurer {
             bookRepository.save(new PhoneRecord("Роберт Игнатьев", "79589582244"));
             bookRepository.save(new PhoneRecord("Jane Dawson", "88126777102"));
             bookRepository.save(new PhoneRecord("Bob Marley", "+74212566400"));
-            bookRepository.save(new PhoneRecord("Жанна Григорьева", "+89112001354"));
+            bookRepository.save(new PhoneRecord("Жанна Григорьева", "+79112001354"));
         };
     }
 

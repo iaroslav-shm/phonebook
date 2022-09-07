@@ -4,9 +4,6 @@ const ResetButton = document.querySelector(".action__item--reset");
 const NameInput = document.querySelector('.form__item--name');
 const PhoneInput = document.querySelector('.form__item--phone');
 
-const NameWrapper = document.querySelector('.item-wrapper1');
-const PhoneWrapper = document.querySelector('.item-wrapper2');
-
 const Table = document.querySelector('.table');
 
 let deleteList = document.querySelectorAll('.action--delete');
@@ -18,55 +15,23 @@ const ModalCancel = document.querySelector('.modal__action--cancel');
 const ModalName = document.querySelector('.modal__item--name');
 const ModalPhone = document.querySelector('.modal__item--phone');
 
-const ModalNameWrapper = document.querySelector('.item-wrapper3');
-const ModalPhoneWrapper = document.querySelector('.item-wrapper4');
-
-function addListenerForDelete() {
+function listenerForDelete() {
   for(let i = 0; i < deleteList.length; i++) {
     deleteList[i].addEventListener('click', () => {
       deleteItem(BookArray[i].id);
     });
   }
 }
-addListenerForDelete();
+listenerForDelete();
 
-function addListenerForEdit() {
+function listenerForEdit() {
   for(let i = 0; i < editList.length; i++) {
     editList[i].addEventListener('click', () => {
       ModalSetData(i, BookArray[i]);
     });
   }
 }
-addListenerForEdit();
-
-function validationPhone(phone) {
-  let regex = /^(\+7|([78]))(\d{10})$/;
-  return regex.test(phone);
-}
-
-let normalPhone = false;
-let normalName = false;
-
-PhoneInput.addEventListener('input', () => {
-  if(!validationPhone(PhoneInput.value)) {
-    PhoneWrapper.classList.add('phone--error');
-    normalPhone = false;
-  } else {
-    PhoneWrapper.classList.remove('phone--error');
-    normalPhone = true;
-  }
-})
-
-NameInput.addEventListener('input', () => {
-  if(NameInput.value.length < 2 || NameInput.value.length > 256) {
-    NameWrapper.classList.add('name--error');
-    normalName = false;
-  } else {
-    NameWrapper.classList.remove('name--error');
-    normalName = true;
-  }
-})
-
+listenerForEdit();
 
 ModalSave.addEventListener('click', editItem);
 ModalCancel.addEventListener('click', toggleModal);
@@ -97,26 +62,6 @@ function ModalSetData(index, item) {
   toggleModal();
 }
 
-ModalPhone.addEventListener('input', () => {
-  if(!validationPhone(ModalPhone.value)) {
-    ModalPhoneWrapper.classList.add('phone--error');
-    normalPhone = false;
-  } else {
-    ModalPhoneWrapper.classList.remove('phone--error');
-    normalPhone = true;
-  }
-})
-
-ModalName.addEventListener('input', () => {
-  if(ModalName.value.length < 2 || ModalName.value.length > 256) {
-    ModalNameWrapper.classList.add('name--error');
-    normalName = false;
-  } else {
-    ModalNameWrapper.classList.remove('name--error');
-    normalName = true;
-  }
-})
-
 async function getList() {
   try {
     const response = await fetch('http://localhost:8080/records');
@@ -136,27 +81,26 @@ async function getList() {
 getList();
 
 async function addItem() {
-  if(normalName && normalPhone) {
-    const body = JSON.stringify({
-      name: NameInput.value,
-      phone: PhoneInput.value
+  const body = JSON.stringify({
+    name: NameInput.value,
+    phone: PhoneInput.value
+  })
+  console.log(body);
+  try {
+    const response = await fetch('http://localhost:8080/records', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        mode: 'no-cors'
+      },
+      body: body
     })
-    try {
-      const response = await fetch('http://localhost:8080/records', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          mode: 'no-cors'
-        },
-        body: body
-      })
-      const data = await response.json();
-      console.log(data);
-      reset();
-      getList();
-    } catch(err) {
-      console.log(err)
-    }
+    const data = await response.json();
+    console.log(data);
+    reset();
+    getList();
+  } catch(err) {
+    console.log(err)
   }
 }
 
@@ -183,6 +127,7 @@ async function editItem() {
 }
 
 async function deleteItem(id) {
+  console.log(id)
   const url = 'http://localhost:8080/records/' + id + '/';
   try {
     const response = await fetch(url, {
@@ -225,8 +170,8 @@ function updateTable() {
   Table.innerHTML = Template;
   deleteList = document.querySelectorAll('.action--delete');
   editList = document.querySelectorAll('.action--add')
-  addListenerForDelete();
-  addListenerForEdit();
+  listenerForDelete();
+  listenerForEdit();
 }
 
 const BookArray = [];

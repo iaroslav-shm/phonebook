@@ -92,7 +92,6 @@ p {
 }
 
 .table__item {
-    /*С помощью display grid строю таблицу, про grid можно почитать*/
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 
@@ -136,7 +135,6 @@ p {
 
     padding: 25px;
 
-    /*Использую transform для отцентровки модального окна*/
     transform: translateX(-50%) translateY(-50%);
     box-shadow: 0 0 8px 0 rgba(34, 60, 80, 0.2);
     border-radius: 12px;
@@ -154,38 +152,4 @@ p {
 
 .hidden {
     display: none;
-}
-
-.name--error {
-    position: relative;
-}
-
-.name--error::after {
-    content: 'Имя должно содержать больше 1 символа';
-    position: absolute;
-    bottom: -20px;
-    left: 0;
-
-    width: 100%;
-    height: 20px;
-
-    font-size: 14px;
-    color: red;
-}
-
-.phone--error {
-    position: relative;
-}
-
-.phone--error::after {
-    content: 'Формат номера 11 цифр без тире и пробелов';
-    position: absolute;
-    bottom: -20px;
-    left: 0;
-
-    width: 100%;
-    height: 20px;
-
-    font-size: 14px;
-    color: red;
 }
