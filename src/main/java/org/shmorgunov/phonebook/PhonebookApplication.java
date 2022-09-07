@@ -6,26 +6,31 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.time.LocalDateTime;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
-public class PhonebookApplication {
+public class PhonebookApplication implements WebMvcConfigurer {
 
     public static void main(String[] args) {
         SpringApplication.run(PhonebookApplication.class, args);
     }
 
     @Bean
-    public ApplicationRunner dataLoader( PhoneBookRepository bookRepository) {
+    public ApplicationRunner dataLoader(PhoneBookRepository bookRepository) {
         return args -> {
-            bookRepository.deleteAll(); // TODO: Quick hack to avoid tests from stepping on each other with constraint violations
-            bookRepository.save(new PhoneRecord(1L,"Iron man","111", LocalDateTime.now()));
-            bookRepository.save(new PhoneRecord(2L,"Thor","222", LocalDateTime.now()));
-            bookRepository.save(new PhoneRecord(3L,"Black widow","333", LocalDateTime.now()));
-            bookRepository.save(new PhoneRecord(4L,"Scarlet Witch","555", LocalDateTime.now()));
-            bookRepository.save(new PhoneRecord(5L,"Top Gun Maverick","777", LocalDateTime.now()));
+            bookRepository.deleteAll();
+            bookRepository.save(new PhoneRecord("Иван Петров", "+79119581931"));
+            bookRepository.save(new PhoneRecord("Роберт Игнатьев", "79589582244"));
+            bookRepository.save(new PhoneRecord("Jane Dawson", "88126777102"));
+            bookRepository.save(new PhoneRecord("Bob Marley", "+74212566400"));
+            bookRepository.save(new PhoneRecord("Жанна Григорьева", "+89112001354"));
         };
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("index");
     }
 
 }

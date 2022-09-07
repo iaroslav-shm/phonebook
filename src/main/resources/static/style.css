@@ -1,0 +1,155 @@
+.main-wrapper {
+    display: flex;
+}
+
+.item-wrapper {
+    display: block;
+
+    margin-bottom: 20px;
+}
+
+input {
+    padding: 0;
+    margin: 0;
+}
+
+.form__item {
+    display: block;
+
+    width: 250px;
+    height: 30px;
+    padding-left: 20px;
+
+    border: 1px solid #C5C5C5FF;
+}
+
+.action-wrapper {
+    display: flex;
+}
+
+.action__item {
+    padding: 5px 15px;
+
+    color: #fff;
+}
+
+button {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+.action__item--add {
+    margin-right: 30px;
+
+    background-color: forestgreen;
+}
+
+.action__item--reset {
+    background-color: coral;
+}
+
+.table-wrapper {
+    margin-left: 60px;
+}
+
+.table__header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+
+    width: 650px;
+
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+}
+
+.header__item {
+    padding: 5px 0;
+
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+
+    text-align: center;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+p {
+    padding: 0;
+    margin: 0;
+}
+
+.table {
+    border-left: 1px solid #000;
+}
+
+.table__header {
+    width: 750px;
+}
+
+.table__item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+
+    width: 100%;
+}
+
+.table__section {
+    padding: 10px 0;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+
+    text-align: center;
+}
+
+.table-action__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+
+.table__action {
+    padding: 5px 15px;
+    color: #fff;
+}
+
+.action--add {
+    background-color: forestgreen;
+}
+
+.action--delete {
+    background-color: firebrick;
+}
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    padding: 25px;
+
+    transform: translateX(-50%) translateY(-50%);
+    box-shadow: 0 0 8px 0 rgba(34, 60, 80, 0.2);
+    border-radius: 12px;
+}
+
+.modal__action--save {
+    margin-right: 20px;
+
+    background-color: forestgreen;
+}
+
+.modal__action--cancel {
+    background-color: coral;
+}
+
+.hidden {
+    display: none;
+}

@@ -1,0 +1,60 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	lang="en-US">
+<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="stylesheet" th:href="@{/style.css}">
+		<title>test</title>
+</head>
+<body>
+		<div class="main-wrapper">
+				<div class="form-wrapper">
+						<form class="form-main">
+								<label title="Имя" class="item-wrapper">
+										Имя
+										<input type="text" class="form__item form__item--name">
+								</label>
+								<label title="Номер" class="item-wrapper">
+										Номер
+										<input type="text" class="form__item form__item--phone">
+								</label>
+						</form>
+						<div class="action-wrapper">
+								<button class="action__item action__item--add">Add</button>
+								<button class="action__item action__item--reset">Reset</button>
+						</div>
+				</div>
+				<div class="table-wrapper">
+						<div class="table__header">
+								<p class="header__item">Имя</p>
+								<p class="header__item">Номер</p>
+								<p class="header__item">Дата</p>
+								<p class="header__item">Редактировать</p>
+								<p class="header__item">Удалить</p>
+						</div>
+						<ul class="table">
+
+						</ul>
+						<div class="modal hidden">
+								<h3 class="modal__title">Изменение записи</h3>
+								<label title="Имя" class="item-wrapper">
+										Имя
+										<input type="text" class="form__item modal__item--name">
+								</label>
+								<label title="Номер" class="item-wrapper">
+										Номер
+										<input type="text" class="form__item modal__item--phone">
+								</label>
+								<div class="action-wrapper">
+										<button class="action__item modal__action--save">Save</button>
+										<button class="action__item modal__action--cancel">Cancel</button>
+								</div>
+						</div>
+				</div>
+		</div>
+</body>
+<script type="text/javascript" th:src ="@{/js/script.js}"></script>
+</html>
